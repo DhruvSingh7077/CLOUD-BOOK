@@ -10,7 +10,8 @@ router.post('/', (req, res)=>{
 })
 module.exports = router;    
 
-const express = require('express');
+   // remove
+   const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 // create  a user using: Post '/api/auth". dosent require Auth
@@ -21,4 +22,8 @@ router.post('/', (req, res)=>{
   res.send("hello");
 })
 module.exports = router;    
+
+   
+
+
 
