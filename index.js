@@ -1,30 +1,33 @@
- const connectToMongo =  require('./db');
- const express = require('express')
+ const express = require('express');
+const connectToMongo = require('./db');
+
 connectToMongo(); 
 const app = express()
-const port = 3000
+const port = 5000 
+
+app.use(express.json())
 //available routes
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/notes', require('./routes/notes'))
-app.get('/', (req, res) => {               
-  res.send('Hello World!')
-})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-// remove
- const connectToMongo =  require('./db');
- const express = require('express')
+// remove this 
+ const express = require('express');
+const connectToMongo = require('./db');
+
 connectToMongo(); 
 const app = express()
-const port = 3000
+const port = 5000 
+
+app.use(express.json())
 //available routes
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/notes', require('./routes/notes'))
-app.get('/', (req, res) => {               
-  res.send('Hello World!')
-})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
+})
