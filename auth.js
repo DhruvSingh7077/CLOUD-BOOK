@@ -4,8 +4,10 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
  const bcrypt = require('bcrypt.js');
 const jwt = require('jsonwebtoken');
- const JWT_SECRET = 'qwetyuiop';
-// create a USER using : POST "/api/auth/createuser". no login required
+ var JWT_SECRET = 'qwetyuiop';
+ var fetchuser = require('../middleware/fetchuser');
+
+//  ROUTE 1: create a USER using : POST "/api/auth/createuser". no login required
 router.post('/createuser',[
    body('name','enter a valid name').isLength({min :3}),
    body('email','enter a valid email').isEmail(),
@@ -47,13 +49,13 @@ try{
 }
    
 })
-// Authentication a User using: POST "/api/auth/login". no login required"
+// ROUTE 2: Authentication of a User using: POST "/api/auth/login". no login required"
 router.post('/login',[
    body('email','enter a valid email').isEmail(),
    body('password','password cannot be blank').exists(),
 ], async(req, res)=>{
   
-   // if there are eroors return bad request and the error
+   // if there are errors return bad request and the error
    const errors = validationResult(req);
    if (!errors.isEmpty()){
       return res.status(400).json({ errors:errors.array()});
@@ -84,29 +86,21 @@ router.post('/login',[
    res.status(500).send("Internal Server Error");
 }
 
-   })
-module.exports = router
-// remove this afterwards
- 
-  const passwordCompare = await bcrypt.compare(password, user.password);
-  if(!passwordCompare){
-   return res.status(400).json({error: "please try to login with correct credentials"});
-  }
-
-  const data = {
-      user:{
-         id: user.id
-      }
-   } 
- const authtoken = jwt.sign(data, JWT_SECRET);
-   
-   
-   res.json({authtoken})
-
+   });
+   // ROUTE 3: GET loggedin User Details using : POST "/api/auth/getuser". login required
+   router.post('/getuser', async(req, res)=>{
+   try {
+      userId = "req.user.id";
+      const user = await User.findById(userId).select("-password")
+       res.send(user)
    }catch(error) {
    console.error(error.message);
    res.status(500).send("Internal Server Error");
-}
+   }
+   })
+
+module.exports = router
+
 
 
 
