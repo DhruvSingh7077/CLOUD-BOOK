@@ -11,7 +11,8 @@ import Home from './components/Home';
 import About from './components/About';
 function App() {
   return (
-     
+    <>
+     <NoteState>
      <Router>
       <Navbar />
       <Routes>
@@ -19,7 +20,8 @@ function App() {
         <Route path="/about" element={<About />} />
       </Routes>
     </Router>
-    
+    </NoteState>
+    </>
   );
 }
 
