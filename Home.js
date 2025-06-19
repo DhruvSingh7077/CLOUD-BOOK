@@ -1,9 +1,11 @@
-import React from 'react'
-
+import AddNote from './AddNote';
+import Notes from './Notes';
 const Home = () => {
+
   return (
     <div>
-      this is home page
+     
+         <Notes/>
     </div>
   )
 }
