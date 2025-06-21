@@ -35,20 +35,9 @@ const addNote = async(title, description, tag)=>{
   },
   body: JSON.stringify({title, description,tag})
  });
- const json = await response.json();
- console.log(json)
-   
- console.log("Adding a new note")
- const note ={
-    "_id": "6853234e5f8146cd43d37042",
-    "user": "68531877a6e9fa8cb4ef661a",
-    "title": title,
-    "description": description,
-    "tag": tag,
-    "date": "2025-06-18T20:36:30.441Z",
-    "__v": 0
-  };
-  setNotes(notes.concat(note))
+ const note = await response.json();
+ setNotes(notes.concat(note))
+
 
 } 
 //Delete a Note
@@ -64,7 +53,7 @@ const deleteNote = async (id)=>{
  
  });
  const json = await response.json();
- console.log(json)
+ 
   const newNotes = notes.filter((note)=>{return note._id!==id})
   setNotes(newNotes)
 
