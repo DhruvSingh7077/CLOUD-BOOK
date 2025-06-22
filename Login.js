@@ -1,13 +1,14 @@
 import React ,{useState} from 'react'
-import { useHistory} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const Login =  (props) => {
     const [credentials, setCredentials] = useState({email:"", password:""})
-    let history = useHistory();
+    
+const navigate = useNavigate();
     const handleSubmit= async (e)=>{
         e.preventDefault();
         const response = await fetch("http://localhost:5000/api/auth/login", {
-  method:'GET',
+  method:'POST',
   headers: {
     'Content-Type': 'application/json'
   },
@@ -18,17 +19,20 @@ const Login =  (props) => {
     if (json.success){
         //redirect
         localStorage.setItem('token', json.authtoken);
-        history.push("/"); 
+        props.showAlert("l ogged in Successfully", "success")
+        navigate("/"); 
     }
     else{
         alert("Invalid credentials");
+        props.showAlert("Invalid Credentials", "danger")
     }
 }
  const onChange = (e)=>{
     setCredentials({...credentials, [e.target.name]: e.target.value})
  }
   return (
-    <div>
+    <div className="mt-3">
+        <h2>Login to continue to cloudbook</h2>
       <form onSubmit={handleSubmit}>
   <div className="mb-3">
     <label htmlFor="email" className="form-label">Email address</label>
