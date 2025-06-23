@@ -1,6 +1,7 @@
-import React from 'react'
+
 import {Link, useLocation} from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
 
 
 
@@ -10,6 +11,14 @@ const Navbar = () => {
   const handleLogout = ()=>{
     localStorage.removeItem('token');
     navigate('/login');
+  }
+  const [darkMode, setDarkmode] = useState(false);
+   useEffect(() => {
+    document.body.className = darkMode ? 'dark' : 'light';
+  }, [darkMode]);
+
+  const toggleTheme = () =>{
+    setDarkmode(prev => !prev);
   }
 
   return (
@@ -33,6 +42,10 @@ const Navbar = () => {
         
       </ul>
       {!localStorage.getItem('token')?<form className="d-flex" role="search">
+        <button
+        type="button"
+        className="btn btn-secondary mx-1"
+        onClick={toggleTheme}>{darkMode ? 'Light Mode' : 'Dark Mode'}</button>
         <Link className="btn btn-primary mx-1" to="/login" role="button">Login</Link>
         <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
       </form>: <button onClick={handleLogout} className=" btn btn-primary"> Logout</button>}
