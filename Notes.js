@@ -1,3 +1,4 @@
+import '../Home.css';
 
 import noteContext from '../context/notes/noteContext';
 import React, { useContext, useEffect, useRef, useState } from 'react';
@@ -80,16 +81,18 @@ const Notes = (props) => {
     </div>
   </div>
 </div>
-    <div className="row my-3">    
-       <h2>You Notes</h2>
-       <div className="container mx-2">
-       {notes.length===0 && `no notes to display`}
-       </div>
-       {notes.map((note)=>{
-        return <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note}/>
-        
-       })}
-    </div>  
+     <div className="container my-3">
+  <h2>Your Notes</h2>
+  {notes.length === 0 && <p className="no-notes">No notes to display</p>}
+
+  <div className="notes-grid">
+    {notes.map((note) => (
+      <div className="note-card" key={note._id} >
+      <Noteitem  note={note} updateNote={updateNote} showAlert={props.showAlert}  />
+      </div>
+    ))}
+  </div>
+</div>
     </>
   )
 }
